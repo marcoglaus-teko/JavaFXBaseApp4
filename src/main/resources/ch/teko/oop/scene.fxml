@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -34,7 +35,24 @@
     </Tab>
     <Tab text="Tracks">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="400.0" prefWidth="600.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="textField2" />
+                              <Button fx:id="button2" mnemonicParsing="false" onAction="#listTracks" text="List all Tracks from" />
+                           </children>
+                        </HBox>
+                        <TableView prefHeight="400.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Tracks" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
       </content>
     </Tab>
   </tabs>

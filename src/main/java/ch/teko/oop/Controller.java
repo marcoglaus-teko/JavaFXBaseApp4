@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.ResultSet;
@@ -41,6 +42,12 @@ public class Controller {
     private TableView<Artist> table1;
 
     @FXML
+    private TextField textField2;
+
+    @FXML
+    private Button button2;
+
+    @FXML
     void listArtists(ActionEvent event) {
         ResultSet artists = chinookHandler.getArtists();
         try {
@@ -53,6 +60,23 @@ public class Controller {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void listTracks(ActionEvent event) {
+        System.out.println(this.textField2.getText());
+
+        ResultSet resultSet = chinookHandler.getTracksFromArtists(this.textField2.getText());
+        try {
+            // iterate ResultSet
+            while (resultSet.next()) {
+                String musicName = resultSet.getString("Name");
+                System.out.println(musicName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
