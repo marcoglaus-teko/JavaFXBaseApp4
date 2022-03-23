@@ -6,7 +6,28 @@ public class ChinookHandler implements IChinookDB {
     private String url;
     private Connection connection;
 
-    public ChinookHandler(String url) {
+    // instance
+    private static ChinookHandler chinookHandler;
+
+    // Singleton-Pattern
+    // *****************
+    public static ChinookHandler getChinookHandlerInstance() {
+        if (chinookHandler == null) {
+            // **********************************************
+            // individuell anpassen
+            String urlToSQLiteFile = "jdbc:sqlite:/Users/glausm/Desktop/JDBCTutorial/chinook.db";
+            // **********************************************
+            chinookHandler = new ChinookHandler(urlToSQLiteFile);
+        }
+        return chinookHandler;
+    }
+    // *****************
+
+    private ChinookHandler() {
+    }
+
+    // must be private to prevent creation other than through getChinookHandlerInstance()
+    private ChinookHandler(String url) {
         this.url = url;
         this.connection = this.getDBConnection(url);
     }
@@ -36,7 +57,7 @@ public class ChinookHandler implements IChinookDB {
     }
 
     @Override
-    public ResultSet getArtists () {
+    public ResultSet getArtists() {
         String sql = "SELECT artists.Name from artists";
         try {
             Statement statement = this.connection.createStatement();
@@ -48,7 +69,7 @@ public class ChinookHandler implements IChinookDB {
     }
 
     @Override
-    public ResultSet getTracksFromArtists (String placeholder){
+    public ResultSet getTracksFromArtists(String placeholder) {
         // SQL query as String with placeholder "?"
         String sql = "SELECT tracks.Name FROM tracks \n" +
                 "JOIN albums on (tracks.AlbumId = albums.AlbumId) \n" +
@@ -71,7 +92,7 @@ public class ChinookHandler implements IChinookDB {
     }
 
     @Override
-    public ResultSet getAlbumsFromArtists (String placeholder){
+    public ResultSet getAlbumsFromArtists(String placeholder) {
         return null;
     }
 }

@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.ResultSet;
@@ -16,7 +15,7 @@ import java.sql.SQLException;
 public class Controller {
 
     private ObservableList<Artist> artists = FXCollections.observableArrayList();
-    private static ChinookHandler chinookHandler;
+    private ChinookHandler chinookHandler;
 
     @FXML
     public void initialize() {
@@ -25,22 +24,8 @@ public class Controller {
         table1.setItems(this.getArtists());
 
         System.out.println("init Chinook DB connection");
-        chinookHandler = getChinookHandlerInstance();
+        chinookHandler = ChinookHandler.getChinookHandlerInstance();
     }
-
-    // Singleton-Pattern
-    // *****************
-    public static ChinookHandler getChinookHandlerInstance () {
-        if (chinookHandler == null) {
-            // **********************************************
-            // individuell anpassen
-            String urlToSQLiteFile = "jdbc:sqlite:/Users/glausm/Desktop/JDBCTutorial/chinook.db";
-            // **********************************************
-            chinookHandler = new ChinookHandler(urlToSQLiteFile);
-        }
-        return chinookHandler;
-    }
-    // *****************
 
     public ObservableList<Artist> getArtists() {
         return this.artists;

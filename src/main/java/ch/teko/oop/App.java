@@ -38,7 +38,7 @@ public class App extends Application {
     @Override
     public void stop() throws Exception {
         System.out.println("stop!");
-        ChinookHandler chinookHandler = Controller.getChinookHandlerInstance();
+        ChinookHandler chinookHandler = ChinookHandler.getChinookHandlerInstance();
         chinookHandler.closeConnection();
     }
 }
