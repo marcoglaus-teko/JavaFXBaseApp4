@@ -45,9 +45,9 @@
                               <Button fx:id="button2" mnemonicParsing="false" onAction="#listTracks" text="List all Tracks from" />
                            </children>
                         </HBox>
-                        <TableView prefHeight="400.0" prefWidth="200.0">
+                        <TableView fx:id="table2" prefHeight="400.0" prefWidth="200.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Tracks" />
+                            <TableColumn fx:id="tracksColumn" prefWidth="600.0" text="Tracks" />
                           </columns>
                         </TableView>
                      </children>

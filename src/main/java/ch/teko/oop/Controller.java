@@ -16,13 +16,16 @@ import java.sql.SQLException;
 public class Controller {
 
     private ObservableList<Artist> artists = FXCollections.observableArrayList();
+    private ObservableList<Track> tracks = FXCollections.observableArrayList();
     private ChinookHandler chinookHandler;
 
     @FXML
     public void initialize() {
-        System.out.println("init ObservableList");
+        System.out.println("init ObservableLists");
         this.artistsColumn.setCellValueFactory(new PropertyValueFactory<Artist, String>("name"));
+        this.tracksColumn.setCellValueFactory(new PropertyValueFactory<Track, String>("name"));
         table1.setItems(this.getArtists());
+        table2.setItems(this.getTracks());
 
         System.out.println("init Chinook DB connection");
         chinookHandler = ChinookHandler.getChinookHandlerInstance();
@@ -30,6 +33,10 @@ public class Controller {
 
     public ObservableList<Artist> getArtists() {
         return this.artists;
+    }
+
+    private ObservableList<Track> getTracks() {
+        return this.tracks;
     }
 
     @FXML
@@ -40,6 +47,12 @@ public class Controller {
 
     @FXML
     private TableView<Artist> table1;
+
+    @FXML
+    private TableView<Track> table2;
+
+    @FXML
+    private TableColumn<Track, String> tracksColumn;
 
     @FXML
     private TextField textField2;
@@ -66,12 +79,16 @@ public class Controller {
     void listTracks(ActionEvent event) {
         System.out.println(this.textField2.getText());
 
+        // liste leeren, damit nicht noch Tracks des zuvor gesuchten Artisten in der TableView sind
+        this.tracks.clear();
+
         ResultSet resultSet = chinookHandler.getTracksFromArtists(this.textField2.getText());
         try {
             // iterate ResultSet
             while (resultSet.next()) {
                 String musicName = resultSet.getString("Name");
-                System.out.println(musicName);
+                // System.out.println(musicName);
+                this.tracks.add(new Track(musicName));
             }
         } catch (SQLException e) {
             e.printStackTrace();
